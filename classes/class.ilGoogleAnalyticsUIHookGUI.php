@@ -38,14 +38,12 @@ class ilGoogleAnalyticsUIHookGUI extends ilUIHookPluginGUI
 		if ($a_part == "template_load" && !$DIC->ctrl()->isAsynch()) {
 			// is main template?
 			if (strpos(strtolower($a_par['html']), "</body>") !== false) {
+
 				/**
 				 * @var $plugin_object ilGoogleAnalyticsPlugin
 				 */
 				$plugin_object = $this->plugin_object;
-				// get the account information
 				$account_id = $plugin_object->getAccountId();
-				$anonymize_ip = $plugin_object->getAnonymizeIp();
-				$track_downloads = $plugin_object->getTrackDownloads();
 
 				// only proceed if account id is set!
 				if ($account_id != NULL) {
@@ -56,70 +54,8 @@ class ilGoogleAnalyticsUIHookGUI extends ilUIHookPluginGUI
 						$tmpl = $plugin_object->getTemplate("tpl.ga_script.html", true, true);
 						$tmpl->setVariable("ACCOUNT_ID", $account_id);
 
-						// anonymize?
-						if ($anonymize_ip) {
-							$tmpl->touchBlock("anonymize_ip");
-						}
-
-						// track downloads?
-						if ($track_downloads) {
-							$tmpl->setCurrentBlock("track_downloads");
-							$tmpl->setVariable("ACCOUNT_ID_DOWNLOAD", $account_id);
-							$tmpl->parseCurrentBlock();
-						}
-
 						// insert code
 						$html = substr($html, 0, $index) . $tmpl->get() . substr($html, $index);
-
-						// get the tag manager information
-						$use_tag_manager = $plugin_object->getUseTagManager();
-						$container_id = $plugin_object->getContainerId();
-
-						// only add gtm-snippets if the tag manager should be used and the container id is set!
-						if ($use_tag_manager and $container_id != NULL) {
-
-							$index_gtm_script = strripos($html, "<head>", -6);
-							if ($index_gtm_script !== false) {
-
-								$tmpl_gtm_script = $plugin_object->getTemplate(
-									"tpl.gtm_script.html",
-									true,
-									true
-								);
-								$tmpl_gtm_script->setVariable("CONTAINER_ID", $container_id);
-
-								// insert google tag manager script code
-								$html = substr($html, 0, $index_gtm_script + 6)
-									. $tmpl_gtm_script->get()
-									. substr($html, $index_gtm_script + 6);
-							}
-
-							$opening_body_tag = NULL;
-							preg_match("<body.*>", $html, $opening_body_tag);
-							if ($opening_body_tag != NULL) {
-								$length_body_tag = strlen($opening_body_tag[0]);
-								$index_gtm_noscript = strripos(
-									$html,
-									$opening_body_tag[0],
-									-$length_body_tag
-								);
-
-								if ($index_gtm_noscript !== false) {
-
-									$tmpl_gtm_noscript = $plugin_object->getTemplate(
-										"tpl.gtm_noscript.html",
-										true,
-										true
-									);
-									$tmpl_gtm_noscript->setVariable("CONTAINER_ID", $container_id);
-
-									// insert google tag manager no-script code
-									$html = substr($html, 0, $index_gtm_noscript + $length_body_tag)
-										. $tmpl_gtm_noscript->get()
-										. substr($html, $index_gtm_noscript + $length_body_tag);
-								}
-							}
-						}
 
 						return array("mode" => ilUIHookPluginGUI::REPLACE, "html" => $html);
 					}
