@@ -1,8 +1,8 @@
 <!-- language file start -->
 plugin_configuration#:#Google Analytics configuration
-warning_no_account_id#:#A valid Google Analytics ID is required to use this plugin.
+warning_no_account_id#:#A valid Google Tag ID is required to use this plugin.
 account_id#:#Account ID
-account_id_info#:#The Google Analytics ID used for tracking page views (e.g. 'UA-XXXXXXX-YY').
+account_id_info#:#The Google Tag ID used for tracking page views (e.g. 'G-SRXXXXXXXX').
 anonymize_ip#:#Anonymize IP
 anonymize_ip_info#:#Tells Google Analytics to anonymize the information sent by the tracker objects by removing the last octet of the IP address prior to its storage. Note that this will slightly reduce the accuracy of geographic reporting.
 track_downloads#:#Track Downloads
