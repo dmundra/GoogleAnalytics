@@ -45,7 +45,7 @@ class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
         // get binary
         $account_id = $plugin->getAccountId();
         if ($account_id == null) {
-            $DIC->ui()->mainTemplate()->setOnScreenMessage("failure", $plugin->txt("warning_no_account_id"));
+            $DIC->ui()->mainTemplate()->setOnScreenMessage(ilGlobalTemplateInterface::MESSAGE_TYPE_FAILURE, $plugin->txt("warning_no_account_id"));
         }
 
         // set all plugin settings values
@@ -74,7 +74,7 @@ class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
         if ($form->checkInput()) {
             $plugin->setAccountId($_POST["account_id"]);
 
-            $DIC->ui()->mainTemplate()->setOnScreenMessage("success", $DIC->language()->txt("saved_successfully"));
+            $DIC->ui()->mainTemplate()->setOnScreenMessage(ilGlobalTemplateInterface::MESSAGE_TYPE_SUCCESS, $DIC->language()->txt("saved_successfully"));
             $DIC->ctrl()->redirect($this, "configure");
         } else {
             $form->setValuesByPost();
