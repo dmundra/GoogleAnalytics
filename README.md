@@ -9,6 +9,7 @@ Put the contents of this folder into
 Enable the plugin in the plugin administration and specify your account id.
 
 ### History
+- `3.0.0` Support for ILIAS 8
 - `2.0.0` Support for ILIAS 7
 - `1.0.4` Feature: Added support for Google GA4 Tags and updated plugin for ILIAS v6.13.
 - `1.0.3` Feature: Added support for Google TagManager and updated plugin for ILIAS v5.4.
