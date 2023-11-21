@@ -22,7 +22,7 @@ class ilGoogleAnalyticsPlugin extends ilUserInterfaceHookPlugin
      * Object initialization. Can be overwritten by plugin class
      * (and should be made protected final)
      */
-    protected function init()
+    protected function init() : void
     {
         $this->settings = new ilSetting("ui_uihk_googa");
         $this->account_id = $this->settings->get("account_id", null);
@@ -34,7 +34,7 @@ class ilGoogleAnalyticsPlugin extends ilUserInterfaceHookPlugin
      *
      * @return string The name of the plugin.
      */
-    public function getPluginName()
+    public function getPluginName() : string
     {
         return "GoogleAnalytics";
     }
@@ -43,7 +43,7 @@ class ilGoogleAnalyticsPlugin extends ilUserInterfaceHookPlugin
     /**
      * After activation processing
      */
-    protected function afterActivation()
+    protected function afterActivation() : void
     {
         // save the settings
         $this->setAccountId($this->getAccountId());

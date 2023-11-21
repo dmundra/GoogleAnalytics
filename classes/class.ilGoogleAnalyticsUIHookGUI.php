@@ -30,7 +30,7 @@ class ilGoogleAnalyticsUIHookGUI extends ilUIHookPluginGUI
      *
      * @return array array with entries "mode" => modification mode, "html" => your html
      */
-    public function getHTML($a_comp, $a_part, $a_par = array())
+    public function getHTML($a_comp, $a_part, $a_par = array()) : array
     {
         global $DIC;
 
