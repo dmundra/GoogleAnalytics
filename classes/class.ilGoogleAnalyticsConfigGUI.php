@@ -1,11 +1,13 @@
 <?php
 
-include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
+//include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
 
 /**
- * Example user interface plugin
+ * Google Analytics configuration user interface class
  *
  * @author Stefan Born <stefan.born@phzh.ch>
+ *
+ * @ilCtrl_IsCalledBy ilGoogleAnalyticsConfigGUI: ilObjComponentSettingsGUI
  *
  */
 class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
@@ -13,10 +15,8 @@ class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
 
     /**
      * Handles all commmands, default is 'configure'
-     *
-     * @access public
      */
-    public function performCommand($cmd) : void
+    function performCommand(string $cmd) : void
     {
         switch ($cmd) {
             case 'configure':
@@ -26,13 +26,10 @@ class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
         }
     }
 
-
     /**
      * Configure screen
-     *
-     * @access public
      */
-    public function configure()
+    function configure()
     {
         global $DIC;
 
@@ -82,30 +79,26 @@ class ilGoogleAnalyticsConfigGUI extends ilPluginConfigGUI
         }
     }
 
-
     /**
      * Init configuration form.
      *
-     * @param $plugin ilGoogleAnalyticsPlugin
-     *
      * @return object form object
-     * @access public
      */
-    private function initConfigurationForm($plugin)
+    public function initConfigurationForm()
     {
         global $DIC;
 
         include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
         $form = new ilPropertyFormGUI();
         $form->setTableWidth("100%");
-        $form->setTitle($plugin->txt("plugin_configuration"));
+        $form->setTitle($this->plugin_object->txt("plugin_configuration"));
         $form->setFormAction($DIC->ctrl()->getFormAction($this));
 
         // account id
-        $input = new ilTextInputGUI($plugin->txt("account_id"), "account_id");
+        $input = new ilTextInputGUI($this->plugin_object->txt("account_id"), "account_id");
         $input->setRequired(true);
-        $input->setValue($plugin->getAccountId());
-        $input->setInfo($plugin->txt("account_id_info"));
+        $input->setValue($this->plugin_object->getAccountId());
+        $input->setInfo($this->plugin_object->txt("account_id_info"));
         $form->addItem($input);
 
         $form->addCommandButton("save", $DIC->language()->txt("save"));

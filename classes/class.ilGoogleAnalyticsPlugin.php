@@ -51,7 +51,7 @@ class ilGoogleAnalyticsPlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * Sets the google analytics account id.
+     * Sets the Google Analytics account id.
      *
      * @param int $a_value The new value
      */
@@ -63,7 +63,7 @@ class ilGoogleAnalyticsPlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * Gets the google analytics account id.
+     * Gets the Google Analytics account id.
      *
      * @return int The current value
      */
